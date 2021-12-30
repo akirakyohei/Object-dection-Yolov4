@@ -1,0 +1,10 @@
+Keras
+# tensorflow-gpu==1.13.1
+tensorflow
+numpy
+opencv-python
+scikit-learn
+scipy
+Pillow
+torch
+torchvision
