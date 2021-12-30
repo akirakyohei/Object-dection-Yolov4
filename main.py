@@ -13,10 +13,7 @@ import numpy as np
 import argparse
 from PIL import Image
 from yolo import YOLO
-<<<<<<< HEAD
 from yolov4 import YOLOV4
-=======
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
 
 from deep_sort import preprocessing
 from deep_sort import nn_matching
@@ -28,10 +25,7 @@ from collections import deque
 from tensorflow.python.keras import backend
 import tensorflow as tf
 from yolo4.utils import resize_image, load_class_names
-<<<<<<< HEAD
 from config import width, height
-=======
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
 # config = tf.compat.v1.ConfigProto
 # config.gpu_options.allow_growth = False
 # session = tf.compat.v1.InteractiveSession(config=config)
@@ -52,7 +46,6 @@ COLORS = np.random.randint(0, 255, size=(200, 3),
 #list = [[] for _ in range(100)]
 
 def main(yolo):
-<<<<<<< HEAD
     start = time.time()
     max_cosine_distance =0.3
     nn_budget = None
@@ -61,38 +54,18 @@ def main(yolo):
     counter =[]
 
     model_filename = './model_data/mars-small128.pb'
-=======
-
-    start = time.time()
-    max_cosine_distance = 0.3
-    nn_budget = None
-    nms_max_overlap = 1.0
-
-    counter = []
-    #deep_sort
-    model_filename = 'model_data/market1501.pb'
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
     encoder = gdet.create_box_encoder(model_filename,batch_size=1)
 
     find_objects = ['person']
     metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
     tracker = Tracker(metric)
-<<<<<<< HEAD
     writeVideo_flag = True
     video_capture = cv2.VideoCapture(args["input"])
-=======
-
-    writeVideo_flag = True
-    video_capture = cv2.VideoCapture(args["input"])
-    #video_capture = cv2.VideoCapture(0)
-
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
     if writeVideo_flag:
     # Define the codec and create VideoWriter object
         w = int(video_capture.get(3))
         h = int(video_capture.get(4))
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-<<<<<<< HEAD
         out = cv2.VideoWriter('./output/output.avi', fourcc, 15, (w, h))
         list_file = open('detection_rslt.txt', 'w')
         frame_index = -1
@@ -100,40 +73,18 @@ def main(yolo):
     fps = 0.0    
 
     while True:
-=======
-        out = cv2.VideoWriter('./output/output.avi',fourcc, 15, (w,h))
-        list_file = open('detection_rslt.txt', 'w')
-        frame_index = -1
-
-    fps = 0.0
-
-    while True:
-
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
         ret, frame = video_capture.read()  # frame shape 640*480*3
         if ret != True:
             break
         t1 = time.time()
 
         #image = Image.fromarray(frame)
-<<<<<<< HEAD
         # frame = cv2.resize(pre_frame,(width, height))
         image = Image.fromarray(frame[...,::-1]) #bgr to rgb
         boxs, confidence, class_names = yolo.detect_image(image)
         features = encoder(frame,boxs)
         # score to 1.0 here).
         detections = [Detection(bbox,confidence,cls, feature) for bbox,confidence,cls, feature in zip(boxs,confidence,class_names, features)]
-=======
-        image = Image.fromarray(frame[...,::-1]) #bgr to rgb
-        resized_frame = tf.expand_dims(frame, 0)
-        resized_frame = resize_image(
-        resized_frame, (608,608))
-
-        boxs, confidence, class_names = yolo.detect_image(image)
-        features = encoder(frame,boxs)
-        # score to 1.0 here).
-        detections = [Detection(bbox, 1.0, feature) for bbox, feature in zip(boxs, features)]
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
         # Run non-maxima suppression.
         boxes = np.array([d.tlwh for d in detections])
         scores = np.array([d.confidence for d in detections])
@@ -204,15 +155,9 @@ def main(yolo):
         cv2.putText(frame, "Total Pedestrian Counter: "+str(count),(int(20), int(120)),0, 5e-3 * 200, (0,255,0),2)
         cv2.putText(frame, "Current Pedestrian Counter: "+str(i),(int(20), int(80)),0, 5e-3 * 200, (0,255,0),2)
         cv2.putText(frame, "FPS: %f"%(fps),(int(20), int(40)),0, 5e-3 * 200, (0,255,0),3)
-<<<<<<< HEAD
         # cv2.namedWindow("YOLO4_Deep_SORT", 0);
         # cv2.resizeWindow('YOLO4_Deep_SORT', 1024, 768);
         # cv2.imshow('YOLO4_Deep_SORT', frame)
-=======
-        cv2.namedWindow("YOLO4_Deep_SORT", 0);
-        cv2.resizeWindow('YOLO4_Deep_SORT', 1024, 768);
-        cv2.imshow('YOLO4_Deep_SORT', frame)
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
 
 
         if writeVideo_flag:
@@ -242,14 +187,7 @@ def main(yolo):
     if writeVideo_flag:
         out.release()
         list_file.close()
-<<<<<<< HEAD
     cv2.destroyAllWindows()   
 
 if __name__ == '__main__':
     main(YOLOV4())
-=======
-    cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    main(YOLO())
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4

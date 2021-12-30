@@ -4,24 +4,15 @@ import numpy as np
 from tensorflow.python.keras import backend as K
 from tensorflow.keras.models import load_model
 import tensorflow as tf
-<<<<<<< HEAD
 from yolo4.model import Swish, yolo_eval, Mish
 from yolo4.utils import letterbox_image
 from config import width,height
-=======
-from yolo4.model import yolo_eval, Mish
-from yolo4.utils import letterbox_image
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
 import os
 # from tensorflow.keras.utils import multi_gpu_model
 tf.compat.v1.disable_eager_execution()
 class YOLO(object):
     def __init__(self):
-<<<<<<< HEAD
         self.model_path = 'model_data/yolov4_weight.h5'
-=======
-        self.model_path = './model_data/yolov4_weight.h5'
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
         self.anchors_path = './model_data/yolo4_anchors.txt'
         self.classes_path = './model_data/coco_classes.names'
         self.gpu_num = 1
@@ -30,11 +21,7 @@ class YOLO(object):
         self.class_names = self._get_class()
         self.anchors = self._get_anchors()
         self.sess = K.get_session()
-<<<<<<< HEAD
         self.model_image_size = (width, height)  # fixed size or (None, None)
-=======
-        self.model_image_size = (608, 608)  # fixed size or (None, None)
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
         self.is_fixed_size = self.model_image_size != (None, None)
         self.boxes, self.scores, self.classes = self.generate()
 
@@ -57,11 +44,7 @@ class YOLO(object):
         model_path = os.path.expanduser(self.model_path)
         assert model_path.endswith('.h5'), 'Keras model or weights must be a .h5 file.'
 
-<<<<<<< HEAD
         self.yolo_model = load_model(model_path, custom_objects={'Mish': Mish,'Swish':Swish}, compile=False)
-=======
-        self.yolo_model = load_model(model_path, custom_objects={'Mish': Mish}, compile=False)
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
         
         print('{} model, anchors, and classes loaded.'.format(model_path))
 
