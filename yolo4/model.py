@@ -45,8 +45,6 @@ class Mish(Layer):
     @staticmethod
     def compute_output_shape(input_shape):
         return input_shape
-
-<<<<<<< HEAD
 class Swish(Layer):
     """
    ham kich hoat swish
@@ -71,8 +69,6 @@ class Swish(Layer):
     @staticmethod
     def compute_output_shape(input_shape):
         return input_shape
-=======
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
 
 def unique_config_sections(config_file):
     """Convert all config sections to have unique names.
@@ -141,11 +137,6 @@ def yolo_correct_boxes(box_xy, box_wh, image_shape):
     return boxes
 
 def yolo_load_model(config_path,weights_path):
-<<<<<<< HEAD
-    print(config_path)
-    print(weights_path)
-=======
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
     print('Loading weights.')
     weights_file = open(weights_path, 'rb')
     major, minor, revision = np.ndarray(shape=(3,), dtype='int32', buffer=weights_file.read(12))
@@ -259,7 +250,6 @@ def yolo_load_model(config_path,weights_path):
                 act_layer = Mish()(prev_layer)
                 prev_layer = act_layer
                 all_layers.append(prev_layer)
-<<<<<<< HEAD
             elif activation == 'swish':
                 act_layer = Swish()(prev_layer)
                 prev_layer = act_layer
@@ -268,8 +258,7 @@ def yolo_load_model(config_path,weights_path):
                 act_layer = tf.keras.layers.Activation('sigmoid')(prev_layer)
                 prev_layer = act_layer
                 all_layers.append(prev_layer)
-=======
->>>>>>> 55b161656bff0bbf0eb71ec75f5320cba7b97da4
+
 
         elif section.startswith('route'):
             ids = [int(i) for i in cfg_parser[section]['layers'].split(',')]

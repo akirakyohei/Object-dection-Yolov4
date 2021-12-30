@@ -77,7 +77,7 @@ def main(yolo):
         w = int(video_capture.get(3))
         h = int(video_capture.get(4))
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-        out = cv2.VideoWriter('./output/output.avi',fourcc, 15, (w,h))
+        out = cv2.VideoWriter('./output/output.avi',fourcc, 15, (608,608))
         list_file = open('detection_rslt.txt', 'w')
         frame_index = -1
 
